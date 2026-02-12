@@ -4,13 +4,14 @@ WanderLust is a full-featured travel and accommodation web application built wit
 
 ---
 ![Login Page Screenshot](docs/screenshots/login.png)
-*Add a screenshot of a listing page here*
+Authentication Page
+
 
 ![Homepage Screenshot](docs/screenshots/homepage.png)
-*Add a screenshot of the homepage here*
+Home Page 
 
 ![Listing Page Screenshot](docs/screenshots/listing.png)
-*Add a screenshot of a listing page here*
+Listing Page
 
 ---
 
@@ -61,12 +62,8 @@ WanderLust is a full-featured travel and accommodation web application built wit
 - `public/` - Static assets (CSS, JS, images)
 - `utils/` - Utility functions and error handling
 
-## Screenshots
-Add your screenshots to the `docs/screenshots/` folder and update the image links above.
+## Try for yourself
+[https://wanderlust-bt2z.onrender.com](https://wanderlust-bt2z.onrender.com)
 
-## License
-This project is licensed under the MIT License.
-
----
 
 *Feel free to contribute or open issues!*
