@@ -17,7 +17,7 @@ if (process.env.NODE_ENV !== "production") {
     require('dotenv').config();
 }
 
-const listingRouter= require("./routes/listing.js");
+const listingRouter = require("./routes/listing.js");
 const reviewRouter = require("./routes/review.js");
 const userRouter = require("./routes/user.js");
 
@@ -40,16 +40,16 @@ async function main() {
 
 main().catch(err => console.error("Initial connection error:", err));
 
-app.set("view engine","ejs");
-app.set("views",path.join(__dirname,"views"));
-app.use(express.static(path.join(__dirname,"public")));
-app.use(express.urlencoded({extended:true}));
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
+app.use(express.static(path.join(__dirname, "public")));
+app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
-app.engine("ejs",ejsMate);
+app.engine("ejs", ejsMate);
 app.use(cookieParser(process.env.SECRET));
 
-const store=MongoStore.create({
-    mongoUrl:dbUrl,
+const store = MongoStore.create({
+    mongoUrl: dbUrl,
     touchAfter: 24 * 60 * 60,
     crypto: {
         secret: process.env.SECRET,
@@ -68,7 +68,7 @@ const sessionConfig = {
     }
 };
 
-store.on("error",()=>{
+store.on("error", () => {
     console.log("ERROR in MONGO SESSION STORE")
 })
 
@@ -87,7 +87,7 @@ passport.deserializeUser(User.deserializeUser());
 app.use((req, res, next) => {
     res.locals.success = req.flash("success");
     res.locals.error = req.flash("error");
-    res.locals.currentUser = req.user; 
+    res.locals.currentUser = req.user;
     next();
 });
 
@@ -95,6 +95,11 @@ app.use((req, res, next) => {
 app.use("/", userRouter);  // This should come first
 app.use("/listings/:id/reviews", reviewRouter);
 app.use("/listings", listingRouter);  // This should come after user routes
+
+// Root route - redirect to listings
+app.get("/", (req, res) => {
+    res.redirect("/listings");
+});
 
 // 404 handler - place this after all your routes
 app.use((req, res, next) => {
@@ -105,8 +110,8 @@ app.use((req, res, next) => {
 app.use((err, req, res, next) => {
     let { statusCode = 500, message = "Something went wrong!" } = err;
     if (!err.message) err.message = message;
-    
-    res.status(statusCode).render("error", { 
+
+    res.status(statusCode).render("error", {
         err: {
             statusCode,
             message: err.message,
@@ -117,6 +122,7 @@ app.use((err, req, res, next) => {
 });
 
 // Server startup
-app.listen(8080, () => {
-    console.log("Server is running on port 8080");
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
 });

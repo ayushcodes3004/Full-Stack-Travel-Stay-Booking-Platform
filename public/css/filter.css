@@ -22,12 +22,19 @@
     display: none;
 }
 .tax-toogle{
-    border: 1px solid black;
-    border-radius: 1rem;
-    height: 3.25rem;
-    padding: 1rem;
-    margin-left: 2rem;
+    text-align: center;
+    margin-right: 2.5rem;
+    margin-top: 2rem;
+    opacity: 0.7;
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 0.5rem;
+}
+.tax-toogle .form-check-reverse{
+    margin: 0;
+}
+.tax-toogle .form-check-label{
+    font-size: 0.75rem;
+    margin: 0;
 }
